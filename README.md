@@ -1,4 +1,4 @@
-## Available Scripts
+## Hemisphere Display
 
 Getting user location with GeoLocation API. Photo representation according to the user's hemisphere.
 State,props and Lifecycles was used. Style library is Semantic UI.
