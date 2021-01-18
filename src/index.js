@@ -1,17 +1,70 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import HemisphereDisplay from "./components/HemisphereDisplay";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// const App = () => {
+//   window.navigator.geolocation.getCurrentPosition(
+//       (position) => console.log(position),
+//       (err) => console.log(err)
+//   )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+//   return(
+//     <div>
+
+//     </div>
+//    );
+// };
+
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: "",
+      longitude: "",
+      errorMessage: "",
+    };
+  }
+
+  componentDidMount() {
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (err) => {
+        this.setState({ errorMessage: err.message });
+        throw err;
+      }
+    );
+  }
+
+  componentDidUpdate() {
+    console.log("componentDidUpdate");
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  render() {
+    if (this.state.errorMessage && !this.state.latitude) {
+      return (
+        <div>
+          <div>{this.state.errorMessage}</div>
+        </div>
+      );
+    }
+    if (!this.state.errorMessage && this.state.latitude) {
+      return (
+        <HemisphereDisplay latitude={this.state.latitude} longitude={this.state.longitude}/>
+      );
+    } else {
+      return <div>loading...</div>;
+    }
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));

@@ -1,3 +1,8 @@
+## Available Scripts
+
+Getting user location with GeoLocation API. Photo representation according to the user's hemisphere.
+State,props and Lifecycles was used. Style library is Semantic UI.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
